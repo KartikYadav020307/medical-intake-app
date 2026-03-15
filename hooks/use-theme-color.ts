@@ -10,12 +10,12 @@ export function useThemeColor(
   props: { light?: string; dark?: string },
   colorName: keyof typeof Colors.light & keyof typeof Colors.dark
 ) {
-  const theme = useColorScheme() ?? 'light';
-  const colorFromProps = props[theme];
+  const colorScheme = useColorScheme() ?? 'light';
+  const overrideColor = props[colorScheme];
 
-  if (colorFromProps) {
-    return colorFromProps;
+  if (overrideColor) {
+    return overrideColor;
   } else {
-    return Colors[theme][colorName];
+    return Colors[colorScheme][colorName];
   }
 }

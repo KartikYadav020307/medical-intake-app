@@ -86,9 +86,9 @@ export default function DashboardScreen() {
             </TouchableOpacity>
           </View>
 
-          {RECENT_UPLOADS.map((item) => (
+          {RECENT_UPLOADS.map((upload) => (
             <TouchableOpacity
-              key={item.id}
+              key={upload.id}
               className="bg-white p-4 rounded-2xl border border-gray-100 mb-3 flex-row items-center"
               activeOpacity={0.7}
               onPress={() => router.push('/summary')}
@@ -98,11 +98,11 @@ export default function DashboardScreen() {
               </View>
               <View className="flex-1">
                 <Text className="text-base font-medium text-gray-900">
-                  {item.name}
+                  {upload.name}
                 </Text>
-                <Text className="text-xs text-gray-400 mt-0.5">{item.date}</Text>
+                <Text className="text-xs text-gray-400 mt-0.5">{upload.date}</Text>
               </View>
-              <StatusBadge status={item.status} />
+              <StatusBadge status={upload.status} />
             </TouchableOpacity>
           ))}
         </View>

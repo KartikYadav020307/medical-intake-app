@@ -11,7 +11,7 @@ const path = require("path");
 const readline = require("readline");
 
 const root = process.cwd();
-const oldDirs = ["app", "components", "hooks", "constants", "scripts"];
+const directoriesToReset = ["app", "components", "hooks", "constants", "scripts"];
 const exampleDir = "app-example";
 const newAppDir = "app";
 const exampleDirPath = path.join(root, exampleDir);
@@ -40,12 +40,12 @@ export default function RootLayout() {
 }
 `;
 
-const rl = readline.createInterface({
+const readlineInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-const moveDirectories = async (userInput) => {
+const resetProjectDirectories = async (userInput) => {
   try {
     if (userInput === "y") {
       // Create the app-example directory
@@ -54,7 +54,7 @@ const moveDirectories = async (userInput) => {
     }
 
     // Move old directories to new app-example directory or delete them
-    for (const dir of oldDirs) {
+    for (const dir of directoriesToReset) {
       const oldDirPath = path.join(root, dir);
       if (fs.existsSync(oldDirPath)) {
         if (userInput === "y") {
@@ -98,15 +98,15 @@ const moveDirectories = async (userInput) => {
   }
 };
 
-rl.question(
+readlineInterface.question(
   "Do you want to move existing files to /app-example instead of deleting them? (Y/n): ",
   (answer) => {
     const userInput = answer.trim().toLowerCase() || "y";
     if (userInput === "y" || userInput === "n") {
-      moveDirectories(userInput).finally(() => rl.close());
+      resetProjectDirectories(userInput).finally(() => readlineInterface.close());
     } else {
       console.log("❌ Invalid input. Please enter 'Y' or 'N'.");
-      rl.close();
+      readlineInterface.close();
     }
   }
 );

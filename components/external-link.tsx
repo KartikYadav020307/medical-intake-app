@@ -4,11 +4,11 @@ import { type ComponentProps } from 'react';
 
 type Props = Omit<ComponentProps<typeof Link>, 'href'> & { href: Href & string };
 
-export function ExternalLink({ href, ...rest }: Props) {
+export function ExternalLink({ href, ...linkProps }: Props) {
   return (
     <Link
       target="_blank"
-      {...rest}
+      {...linkProps}
       href={href}
       onPress={async (event) => {
         if (process.env.EXPO_OS !== 'web') {
